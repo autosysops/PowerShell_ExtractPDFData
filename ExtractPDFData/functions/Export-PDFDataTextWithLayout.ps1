@@ -36,7 +36,7 @@
     )
 
     # Send telemetry
-    Send-THEvent -ModuleName "ExtractPDFData" -EventName "ConvertFrom-PDFWithLayout"
+    Send-THEvent -ModuleName "ExtractPDFData" -EventName "Export-PDFDataTextWithLayout"
 
     # Load the document
     $document = [Spire.Pdf.PdfDocument]::new($path)
