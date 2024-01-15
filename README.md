@@ -5,6 +5,7 @@
 
 PowerShell module to extract data from a PDF file. For now only supports extracting text with lay-out from the PDF file. Uses the FreeSpire.PDF assembly which is free for personal and commercial use.
 Future features will be:
+
 - Extract text without lay-out
 - Extract images
 
