@@ -4,7 +4,7 @@
 RootModule = 'ExtractPDFData.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.3'
+ModuleVersion = '0.0.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -16,7 +16,7 @@ GUID = '74508e33-11e0-4c15-8268-23329f3e09e8'
 Author = 'AutoSysOps (Leo Visser)'
 
 # Company or vendor of this module
-CompanyName = 'MyCompany'
+CompanyName = 'AutoSysOps'
 
 # Copyright statement for this module
 Copyright = '(c) AutoSysOps (Leo Visser). All rights reserved.'
