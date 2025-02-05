@@ -4,31 +4,25 @@
 $loaded = $false
 $installed = $false
 
-Write-Verbose "Check if FreeSpire.PDF nuget package is present"
 $package = Get-Package -Name FreeSpire.PDF -ErrorAction SilentlyContinue
 if ($package) {
     $installed = $true
-    Write-Verbose "Package is already installed"
     if ([System.AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.FullName -like "Spire.PDF*" }) {
         $loaded = $true
-        Write-Verbose "Package is already loaded"
     }
 }
 
 if (-not $installed) {
-    Write-Verbose "Download FreeSpire.PDF nuget package"
     # Install the package in currentuser scope to make sure no elavation is needed
-    $null = Install-Package -Name FreeSpire.PDF -Source "http://www.nuget.org/api/v2" -SkipDependencies -Confirm:$false -Force -Scope CurrentUser
-    $package = Get-Package -Name FreeSpire.PDF
+    $null = Install-Package -Name FreeSpire.PDF -Source "http://www.nuget.org/api/v2" -SkipDependencies -Confirm:$false -Force -Scope CurrentUser -RequiredVersion 8.6.0
+    $package = Get-Package -Name FreeSpire.PDF -RequiredVersion 8.6.0
 }
 
 if (-not $loaded) {
-    Write-Verbose "Check the FreeSpire.PDF nuget package"
     # Load the package in memory and look for the right dll
     $zip = [System.IO.Compression.ZipFile]::Open($package.Source, "Read")
     $file = $zip.entries | Where-Object { $_.FullName -like "*/net6.0/Spire.Pdf.dll" }
 
-    Write-Verbose "Load FreeSpire.PDF file $($file.FullName)"
     # Read the file to memory
     $reader = [System.IO.StreamReader]$file.Open()
     $memStream = [System.IO.MemoryStream]::new()
@@ -39,7 +33,6 @@ if (-not $loaded) {
     $reader.Close()
     $zip.dispose()
 
-    Write-Verbose "Load the FreeSpire.PDF nuget package"
     # Load the assmebly from memory
     $null = [System.Reflection.Assembly]::Load($bytes)
 }
